@@ -1,0 +1,133 @@
+{
+  "project_id": "proj_reddit_kapsul",
+  "engine": "OmniShorts Pixelle-ComfyUI Hybrid Bridge v2.6",
+  "vram_optimization": "tiled_vae_fp16_lowvram_ready",
+  "nodes": {
+    "1": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "High speed FPV drone flight through obsidian basalt canyon with warm amber neon strips — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic",
+        "clip": [
+          "4",
+          1
+        ]
+      },
+      "_meta": {
+        "title": "Scene 1 Positive Prompt (Continuity Locked)"
+      }
+    },
+    "2": {
+      "class_type": "IPAdapterAdvanced",
+      "inputs": {
+        "weight": 0.8,
+        "reference_image": "/assets/images/bg_kinetic_velocity_canyon.jpg",
+        "lora_name": "none"
+      },
+      "_meta": {
+        "title": "Scene 1 Character DNA Lock (Global)"
+      }
+    },
+    "3": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 4202027,
+        "steps": 28,
+        "cfg": 6.5,
+        "sampler_name": "dpmpp_2m_sde_gpu",
+        "scheduler": "karras",
+        "denoise": 1.0,
+        "positive": [
+          "1",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Scene 1 Render Sampler"
+      }
+    },
+    "4": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "Futuristic Istanbul Bosphorus twilight sky-tram and glowing minarets — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic",
+        "clip": [
+          "4",
+          1
+        ]
+      },
+      "_meta": {
+        "title": "Scene 2 Positive Prompt (Continuity Locked)"
+      }
+    },
+    "5": {
+      "class_type": "IPAdapterAdvanced",
+      "inputs": {
+        "weight": 0.8,
+        "reference_image": "/assets/images/scene_cyber_istanbul_2099.jpg",
+        "lora_name": "none"
+      },
+      "_meta": {
+        "title": "Scene 2 Character DNA Lock (Global)"
+      }
+    },
+    "6": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 4202028,
+        "steps": 28,
+        "cfg": 6.5,
+        "sampler_name": "dpmpp_2m_sde_gpu",
+        "scheduler": "karras",
+        "denoise": 1.0,
+        "positive": [
+          "4",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Scene 2 Render Sampler"
+      }
+    },
+    "7": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "Quantum archive lab with glowing golden crystals — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic",
+        "clip": [
+          "4",
+          1
+        ]
+      },
+      "_meta": {
+        "title": "Scene 3 Positive Prompt (Continuity Locked)"
+      }
+    },
+    "8": {
+      "class_type": "IPAdapterAdvanced",
+      "inputs": {
+        "weight": 0.8,
+        "reference_image": "/assets/images/scene_quantum_archive_lab.jpg",
+        "lora_name": "none"
+      },
+      "_meta": {
+        "title": "Scene 3 Character DNA Lock (Global)"
+      }
+    },
+    "9": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 4202029,
+        "steps": 28,
+        "cfg": 6.5,
+        "sampler_name": "dpmpp_2m_sde_gpu",
+        "scheduler": "karras",
+        "denoise": 1.0,
+        "positive": [
+          "7",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Scene 3 Render Sampler"
+      }
+    }
+  }
+}

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniShorts Studio Pro — Otonom AI Shorts, Storyboard Sürekliliği &amp; AutoClip Üretim Sistemi</title>
+  <meta name="description" content="MoneyPrinterTurbo, OpenMontage, ViMax, Pixelle-Video, Toonflow, PurffleShorts, AutoClip ve OpenShorts projelerinin en iyi özelliklerini tek çatı altında birleştiren profesyonel hibrit AI video üretim stüdyosu." />
+  <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+
+  <!-- Top Broadcast Header -->
+  <header class="studio-topbar" role="banner">
+    <div class="brand-cluster">
+      <div class="brand-mark" aria-hidden="true">OS</div>
+      <div>
+        <h1 class="brand-title">OmniShorts Studio Pro <span class="brand-subtitle">v2.6 HYBRID NLE + MCP</span></h1>
+      </div>
+    </div>
+
+    <nav class="studio-nav" aria-label="Stüdyo Modülleri">
+      <button id="tab-btn-studio" class="nav-tab active" onclick="switchWorkspace('studio')">
+        <span class="tab-dot"></span> 1. Stüdyo &amp; Kurgu (NLE)
+      </button>
+      <button id="tab-btn-characters" class="nav-tab" onclick="switchWorkspace('characters')">
+        <span class="tab-dot"></span> 2. Karakter Kasası (ViMax/Toonflow)
+      </button>
+      <button id="tab-btn-clipper" class="nav-tab" onclick="switchWorkspace('clipper')">
+        <span class="tab-dot"></span> 3. 16:9 → 9:16 AutoClip
+      </button>
+      <button id="tab-btn-providers" class="nav-tab" onclick="switchWorkspace('providers')">
+        <span class="tab-dot"></span> 4. Hibrit AI &amp; ComfyUI
+      </button>
+      <button id="tab-btn-autopilot" class="nav-tab" onclick="switchWorkspace('autopilot')">
+        <span class="tab-dot"></span> 5. Kanal Autopilot &amp; MCP
+      </button>
+      <button id="tab-btn-benchmark" class="nav-tab" onclick="switchWorkspace('benchmark')">
+        <span class="tab-dot"></span> 6. 18 Proje Karşılaştırması
+      </button>
+    </nav>
+
+    <div class="telemetry-cluster">
+      <div class="status-badge" id="engine-status-badge">
+        <span class="status-dot"></span>
+        <span>FFmpeg libass + Hibrit AI Aktif ($0.00 Yerel Mod)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Active Project Switcher Ribbon -->
+  <section class="project-ribbon" aria-label="Hazır ve Üretilen Projeler">
+    <div class="project-pills" id="project-pills-container">
+      <!-- Populated dynamically by app.js -->
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <span class="panel-meta" id="active-render-stats">Render Süresi: -- sn</span>
+    </div>
+  </section>
+
+  <!-- WORKSPACE 1: MAIN NLE STUDIO & AI PRODUCTION FACTORY -->
+  <main id="workspace-studio" class="workspace-view active">
+    <div class="nle-grid">
+      
+      <!-- Left Column: One-Click Multi-Agent Factory -->
+      <aside class="panel-box nle-col-left">
+        <div class="panel-header">
+          <div class="panel-title">⚡ AI Prodüksiyon Fabrikası</div>
+          <span class="panel-meta">5-Ajanlı Otonom Akış</span>
+        </div>
+        <div class="panel-body">
+          <form id="generate-project-form" onsubmit="handleGenerateProject(event)">
+            <div class="form-group">
+              <label class="form-label" for="gen-mode">Üretim Modu &amp; Şablon</label>
+              <select id="gen-mode" class="form-select" onchange="handleModePresetChange()">
+                <option value="cinematic_story">Sinematik AI Hikâye (ViMax + OpenMontage)</option>
+                <option value="reddit_story">Reddit Viral Hikâye Kartı (PurffleShorts)</option>
+                <option value="fake_chat">Sahte Mesajlaşma / Şifreli Chat (iMessage Dark)</option>
+                <option value="viral_quiz">Viral Bilim Testi / Geri Sayım Quiz</option>
+                <option value="long_to_shorts">Uzun Videodan 9:16 Kesit (AutoClip / OpenShorts)</option>
+              </select>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="gen-workflow">İş Akışı Kaynağı</label>
+                <select id="gen-workflow" class="form-select">
+                  <option value="Idea2Video">Idea2Video (Fikirden)</option>
+                  <option value="Script2Video">Script2Video (Senaryodan)</option>
+                  <option value="Novel2Video">Novel2Video (Roman/Metinden)</option>
+                  <option value="Template2Video">Template2Video (Viral Şablon)</option>
+                  <option value="Clip2Shorts">Clip2Shorts (16:9 Kesit)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="gen-character">Karakter DNA Kilidi</label>
+                <select id="gen-character" class="form-select">
+                  <!-- Populated from CharacterVault -->
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="gen-name">Proje Başlığı</label>
+              <input id="gen-name" type="text" class="form-input" placeholder="Örn: 2099 Kuantum Kehaneti" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="gen-topic">
+                <span>Konu, Senaryo, Roman Bölümü veya Soru</span>
+                <span class="panel-meta">TR / EN</span>
+              </label>
+              <textarea id="gen-topic" class="form-textarea" placeholder="Fikrinizi, tam senaryonuzu veya Reddit sorusunu buraya yazın...">2099 yılında İstanbul Boğazı'nın altında uyanan kuantum arşiv ve Anadolu dağlarındaki dev güneş halkası</textarea>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="gen-subtitles">ASS Karaoke Altyazı Stili</label>
+                <select id="gen-subtitles" class="form-select">
+                  <option value="hormozi_gold">Hormozi Gold Pop (#F59E0B)</option>
+                  <option value="mrbeast_cyan">MrBeast Electric Cyan</option>
+                  <option value="tiktok_clean">TikTok Studio Pill</option>
+                  <option value="cinema_minimal">Cinema ARRI Documentary</option>
+                  <option value="reddit_rapid">Reddit Rapid Flash (2 Kelime)</option>
+                  <option value="neon_cyber">Cyberpunk Telemetry</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="gen-bgm">Sidechain BGM Müzik</label>
+                <select id="gen-bgm" class="form-select">
+                  <option value="cyberpunk_pulse">Cyberpunk Analog Pulse</option>
+                  <option value="dark_tension_drone">Dark Villeneuve Drone</option>
+                  <option value="kinetic_synthwave">Kinetic 128BPM Synthwave</option>
+                  <option value="lofi_story_chill">Lo-Fi Story Electric Piano</option>
+                  <option value="none">Sadece Seslendirme &amp; Foley</option>
+                </select>
+              </div>
+            </div>
+
+            <button id="btn-submit-generate" type="submit" class="btn btn-primary" style="margin-top:4px;">
+              🎬 5-Ajanlı Üretimi Başlat &amp; Gerçek MP4 Render Et
+            </button>
+          </form>
+
+          <!-- Virality & Continuity Telemetry Summary -->
+          <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border-subtle);">
+            <div class="form-label">
+              <span>Viral Tutundurma &amp; Süreklilik Telemetrisi</span>
+              <span id="telemetry-score-badge" style="color:var(--accent-emerald); font-family:var(--font-mono); font-weight:700;">96/100</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; font-size:12px;">
+              <div style="background:var(--bg-input); padding:8px 10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                <div style="color:var(--text-muted); font-size:11px;">0-3sn Kanca Gücü</div>
+                <div id="metric-hook" style="font-family:var(--font-mono); font-weight:700; color:var(--accent-amber);">98% Scroll-Stop</div>
+              </div>
+              <div style="background:var(--bg-input); padding:8px 10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                <div style="color:var(--text-muted); font-size:11px;">Karakter Sürekliliği</div>
+                <div id="metric-continuity" style="font-family:var(--font-mono); font-weight:700; color:var(--accent-emerald);">DNA + Seed Kilitli</div>
+              </div>
+              <div style="background:var(--bg-input); padding:8px 10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                <div style="color:var(--text-muted); font-size:11px;">Ses Ördekleme (Ducking)</div>
+                <div id="metric-ducking" style="font-family:var(--font-mono); font-weight:700; color:var(--accent-cyan);">-14dB Sidechain</div>
+              </div>
+              <div style="background:var(--bg-input); padding:8px 10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                <div style="color:var(--text-muted); font-size:11px;">Bulut Maliyeti / VRAM</div>
+                <div id="metric-cost" style="font-family:var(--font-mono); font-weight:700; color:var(--text-primary);">$0.00 • 2.4 GB</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Column: Multi-Agent Pipeline & Interactive Storyboard Editor -->
+      <section class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">🎞️ Sahne Storyboard, Diyalog &amp; Kamera Kontrolü (OpenMontage + Toonflow)</div>
+          <div style="display:flex; gap:8px;">
+            <button id="btn-rerender-storyboard" class="btn btn-emerald btn-sm" onclick="handleRerenderCurrentProject()">
+              ↻ Sahne Değişikliklerini FFmpeg İle Yeniden Render Et
+            </button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <!-- 5-Stage Autonomous Agent Status Row -->
+          <div class="agent-steps" id="agent-pipeline-steps">
+            <!-- Populated by app.js -->
+          </div>
+
+          <!-- Quick Style & BGM Override Bar for Active Project -->
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:10px 12px; background:var(--bg-elevated); border:1px solid var(--border-subtle); border-radius:6px; margin-bottom:14px;">
+            <span style="font-size:12px; font-weight:700; color:var(--accent-amber);">Aktif Proje Hızlı Ayar:</span>
+            <label style="font-size:12px; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
+              Altyazı:
+              <select id="active-sub-style" class="form-select" style="width:auto; padding:4px 8px; font-size:12px;" onchange="handleRerenderCurrentProject()">
+                <option value="hormozi_gold">Hormozi Gold Pop</option>
+                <option value="mrbeast_cyan">MrBeast Electric Cyan</option>
+                <option value="tiktok_clean">TikTok Studio Pill</option>
+                <option value="cinema_minimal">Cinema ARRI</option>
+                <option value="reddit_rapid">Reddit Rapid Flash</option>
+                <option value="neon_cyber">Cyberpunk Telemetry</option>
+              </select>
+            </label>
+            <label style="font-size:12px; color:var(--text-secondary); display:flex; align-items:center; gap:6px;">
+              Müzik:
+              <select id="active-bgm-track" class="form-select" style="width:auto; padding:4px 8px; font-size:12px;" onchange="handleRerenderCurrentProject()">
+                <option value="cyberpunk_pulse">Cyberpunk Pulse</option>
+                <option value="dark_tension_drone">Dark Tension Drone</option>
+                <option value="kinetic_synthwave">Kinetic Synthwave</option>
+                <option value="lofi_story_chill">Lo-Fi Story Chill</option>
+                <option value="none">Müzik Yok</option>
+              </select>
+            </label>
+          </div>
+
+          <!-- Scene List -->
+          <div class="scene-list" id="storyboard-scene-list">
+            <!-- Populated dynamically by app.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: 9:16 Broadcast Monitor & Instant Deliverables -->
+      <aside class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">📱 9:16 Canlı Yayın Monitörü</div>
+          <label style="font-size:11px; color:var(--text-secondary); display:flex; align-items:center; gap:5px; cursor:pointer;">
+            <input id="toggle-safezone" type="checkbox" onchange="toggleSafeZone(this.checked)" />
+            TikTok/Shorts Güvenli Alan
+          </label>
+        </div>
+        <div class="panel-body">
+          <div class="monitor-stage">
+            <video id="studio-video-player" controls playsinline preload="metadata"></video>
+            <div id="safe-zone-layer" class="safe-zone-overlay">
+              <div class="safe-zone-box">
+                <span class="safe-zone-label">9:16 SAFE UI ZONE (ALTYAZI &amp; BAŞLIK ALANI)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="monitor-controls">
+            <div style="display:flex; gap:6px;">
+              <button id="btn-frame-prev" class="btn btn-secondary btn-sm" onclick="stepVideoFrame(-1)" title="1 Kare Geri">-1F</button>
+              <button id="btn-play-toggle" class="btn btn-secondary btn-sm" onclick="toggleVideoPlayback()">Oynat / Duraklat</button>
+              <button id="btn-frame-next" class="btn btn-secondary btn-sm" onclick="stepVideoFrame(1)" title="1 Kare İleri">+1F</button>
+            </div>
+            <div class="timecode-readout" id="video-timecode-display">00:00:00:00</div>
+          </div>
+
+          <!-- Deliverable Downloads -->
+          <div class="export-actions-grid">
+            <a id="dl-mp4-link" href="#" download class="btn btn-secondary btn-sm">⬇ MP4 Video İndir</a>
+            <a id="dl-thumb-link" href="#" download class="btn btn-secondary btn-sm">🖼 Viral Kapak (.JPG)</a>
+            <a id="dl-ass-link" href="#" download class="btn btn-secondary btn-sm">📝 Karaoke Altyazı (.ASS)</a>
+            <a id="dl-comfy-link" href="#" target="_blank" class="btn btn-secondary btn-sm">🧩 ComfyUI Node (.JSON)</a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Bottom Multi-Track Timeline Dock -->
+    <section class="panel-box timeline-dock" aria-label="Çok Katmanlı Zaman Çizelgesi">
+      <div class="panel-header">
+        <div class="panel-title">🎚️ Çok Katmanlı NLE Zaman Çizelgesi (Multi-Track Timeline)</div>
+        <span class="panel-meta" id="timeline-summary-meta">24 FPS • H.264 yuv420p + AAC 192kbps • ASS Karaoke Libass Katmanı</span>
+      </div>
+      <div class="timeline-tracks" id="nle-timeline-tracks">
+        <!-- Populated dynamically by app.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- WORKSPACE 2: CHARACTER VAULT & SCENE CONTINUITY (ViMax + Toonflow) -->
+  <section id="workspace-characters" class="workspace-view">
+    <div style="display:grid; grid-template-columns: 360px 1fr; gap:16px; align-items:start;">
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">🧬 Yeni Karakter DNA Kilidi Ekle</div>
+          <span class="panel-meta">ViMax + Toonflow</span>
+        </div>
+        <div class="panel-body">
+          <form id="create-character-form" onsubmit="handleCreateCharacter(event)">
+            <div class="form-group">
+              <label class="form-label" for="char-name">Karakter Adı</label>
+              <input id="char-name" class="form-input" required placeholder="Örn: Komutan Atlas Demir" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="char-role">Hikâyedeki Rolü / Arketip</label>
+              <input id="char-role" class="form-input" required placeholder="Örn: Zaman Gezgini Mühendis" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="char-dna">Sabit Yüz &amp; Kimlik DNA Promptu</label>
+              <textarea id="char-dna" class="form-textarea" required placeholder="Yüz hatları, yaş, saç, ışıklandırma çapasını yazın...">35-year-old Turkish cybernetic engineer, sharp jawline, silver-streaked dark hair, amber ocular HUD lens, dramatic rim lighting</textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="char-wardrobe">Sabit Kostüm / Kıyafet Çapası</label>
+              <input id="char-wardrobe" class="form-input" required value="matte charcoal flight jacket with brass mission patch" />
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label class="form-label" for="char-seed">Sabit Seed</label>
+                <input id="char-seed" type="number" class="form-input" value="2099888" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="char-ipa">IP-Adapter Ağırlığı</label>
+                <input id="char-ipa" type="number" step="0.05" min="0.1" max="1.0" class="form-input" value="0.88" />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">🔒 Karakteri Kasaya Kaydet ve Sahnelere Bağla</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">🛡️ Kayıtlı Karakter Kasası (Sahneler Arası %100 Tutarlılık)</div>
+          <span class="panel-meta">Seed + IP-Adapter + LoRA Enjeksiyonu</span>
+        </div>
+        <div class="panel-body">
+          <div class="char-grid" id="character-vault-grid">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSPACE 3: 16:9 -> 9:16 AUTOCLIP & OPENSHORTS SMART SPEAKER TRACKER -->
+  <section id="workspace-clipper" class="workspace-view">
+    <div class="clipper-dual-grid">
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">📺 Kaynak 16:9 Uzun Video (Aktif Konuşmacı &amp; Yüz Takibi Analizi)</div>
+          <span class="panel-meta">AutoClip + OpenShorts + FunClip</span>
+        </div>
+        <div class="panel-body">
+          <div class="widescreen-monitor">
+            <video id="clipper-source-video" controls playsinline preload="metadata" src="output/videos/source_podcast_16_9.mp4"></video>
+          </div>
+          <div style="margin-top:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div>
+              <div style="font-weight:700; color:var(--text-primary);">Algılanan Viral Kesit: 02:22 - 02:30 (Viral Skor: 97/100)</div>
+              <div style="font-size:12px; color:var(--text-secondary);">Whisper Kelime Zamanlama + Aktif Konuşmacı Koordinatları: Sol [x:340] → Sağ [x:930]</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button id="btn-clip-smart-pan" class="btn btn-primary btn-sm" style="width:auto;" onclick="runSmartClipper('smart_speaker_track')">
+                🎯 Akıllı Yüz Takibi (Smart Pan 9:16) Render Et
+              </button>
+              <button id="btn-clip-split-screen" class="btn btn-secondary btn-sm" onclick="runSmartClipper('split_screen_podcast')">
+                🌗 İkili Bölünmüş Ekran (Split-Screen Podcast) Render Et
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">📱 Çıkarılan 9:16 Viral Short Çıktısı</div>
+          <span class="panel-meta" id="clipper-output-mode-label">smart_speaker_track</span>
+        </div>
+        <div class="panel-body">
+          <div class="monitor-stage">
+            <video id="clipper-output-video" controls playsinline preload="metadata"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSPACE 4: HYBRID AI PROVIDERS & COMFYUI WORKFLOW BRIDGE -->
+  <section id="workspace-providers" class="workspace-view">
+    <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:16px; align-items:start;">
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">🔌 Hibrit AI Sağlayıcı Merkezi (Yerel Sıfır Maliyet + Bulut API)</div>
+          <span class="panel-meta">Pixelle-Video + MoneyPrinterTurbo</span>
+        </div>
+        <div class="panel-body" id="provider-hub-container">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">🧩 Üretilen ComfyUI Node Graph JSON (IP-Adapter + Seed Lock)</div>
+          <span class="panel-meta">Yerel GPU İş Akışı</span>
+        </div>
+        <div class="panel-body">
+          <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:10px;">
+            Her proje için otomatik üretilen bu düğüm grafiği (Node Graph), yerel ComfyUI sunucunuzda düşük VRAM modunda (FP16 Tiled VAE) karakter yüz kilidiyle çalışmaya hazırdır:
+          </p>
+          <pre class="code-block" id="comfyui-json-preview">Yükleniyor...</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSPACE 5: CHANNEL AUTOPILOT & MCP AGENT SERVER -->
+  <section id="workspace-autopilot" class="workspace-view">
+    <div style="display:grid; grid-template-columns: 1.15fr 1fr; gap:16px; align-items:start;">
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">🚀 Kanal Otomasyonu &amp; Zamanlayıcı (MoneyPrinterV2 + Video Autopilot)</div>
+          <span class="panel-meta">YouTube Shorts • TikTok • Reels</span>
+        </div>
+        <div class="panel-body">
+          <div id="autopilot-list-container"></div>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <div class="panel-header">
+          <div class="panel-title">🤖 Canlı MCP (Model Context Protocol) Ajan Sunucusu Test Masası</div>
+          <span class="panel-meta">JSON-RPC 2.0 • short-video-maker + PurffleShorts</span>
+        </div>
+        <div class="panel-body">
+          <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:12px;">
+            Claude Desktop, Cursor veya OpenMontage ajanları <code>omnishorts</code> MCP araçlarını çağırarak doğrudan gerçek MP4 videolar üretebilir. Aşağıdan canlı bir MCP çağrısı tetikleyin:
+          </p>
+          <div class="form-group">
+            <label class="form-label" for="mcp-tool-select">MCP Aracı Seçin</label>
+            <select id="mcp-tool-select" class="form-select" onchange="updateMcpSamplePayload()">
+              <option value="omnishorts_create_video">omnishorts_create_video (Sıfırdan 9:16 MP4 Üret)</option>
+              <option value="omnishorts_clip_long_video">omnishorts_clip_long_video (16:9 → 9:16 Akıllı Kesit)</option>
+              <option value="omnishorts_lock_character_dna">omnishorts_lock_character_dna (Karakter DNA Kilitle)</option>
+              <option value="omnishorts_export_comfyui_workflow">omnishorts_export_comfyui_workflow (ComfyUI JSON Üret)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mcp-payload-input">JSON-RPC Argümanları</label>
+            <textarea id="mcp-payload-input" class="form-textarea" style="font-family:var(--font-mono); font-size:12px; min-height:110px;"></textarea>
+          </div>
+          <button id="btn-run-mcp" class="btn btn-primary" onclick="executeMcpToolCall()">⚡ MCP Aracını Çalıştır ve Çıktıyı Gör</button>
+          <div style="margin-top:12px;">
+            <div class="form-label">MCP JSON-RPC Yanıtı</div>
+            <pre class="code-block" id="mcp-response-output">Henüz çağrı yapılmadı.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSPACE 6: 18 OPEN-SOURCE PROJECTS BENCHMARK MATRIX -->
+  <section id="workspace-benchmark" class="workspace-view">
+    <div class="panel-box">
+      <div class="panel-header">
+        <div class="panel-title">🏆 2026 GitHub AI Shorts Projeleri Karşılaştırma ve Üstünlük Matrisi (18 Proje Analizi)</div>
+        <span class="panel-meta">%100 MIT Açık Kaynak • Tüm Eksiler Giderildi</span>
+      </div>
+      <div class="panel-body" style="padding:0;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:18%;">İncelenen GitHub Projesi</th>
+              <th style="width:26%;">Orijinal Projenin Öne Çıkan Özelliği</th>
+              <th style="width:24%;">Orijinal Projedeki Eksiklik / Kısıt</th>
+              <th style="width:32%;">OmniShorts Studio Pro'daki Çözüm &amp; Üstünlük</th>
+            </tr>
+          </thead>
+          <tbody id="benchmark-table-body">
+            <!-- Populated by app.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div id="studio-toast" class="toast-banner" role="status" aria-live="polite"></div>
+
+  <script src="static/app.js"></script>
+</body>
+</html>

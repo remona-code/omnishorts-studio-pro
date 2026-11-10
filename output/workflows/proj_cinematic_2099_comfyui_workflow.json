@@ -1,0 +1,133 @@
+{
+  "project_id": "proj_cinematic_2099",
+  "engine": "OmniShorts Pixelle-ComfyUI Hybrid Bridge v2.6",
+  "vram_optimization": "tiled_vae_fp16_lowvram_ready",
+  "nodes": {
+    "1": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "Cinematic vertical 9:16 shot of futuristic Istanbul 2099 at golden hour twilight, autonomous sky-trams above Bosphorus — [CHAR_LOCK:Dr. Elena Kora | DNA:32-year-old woman, Dr. Elena Kora, dark wavy hair tied back in a low bun, piercing hazel eyes, sharp cheekbones, warm tungsten rim lighting | WARDROBE:tailored dark charcoal wool trench coat with brushed brass collar insignia, tactical wrist-chronometer | SEED:2099042 | IPA:0.88] [CHAR_LOCK:Kaelen Vance | DNA:38-year-old rugged male explorer, short salt-and-pepper beard, weathered skin, intense focused gaze, cinematic anamorphic lighting | WARDROBE:matte slate expedition parka with subtle amber telemetry LEDs on shoulder, climbing harness | SEED:8841209 | IPA:0.85] — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic — [CHAR_LOCK:Dr. Elena Kora | DNA:32-year-old woman, Dr. Elena Kora, dark wavy hair tied back in a low bun, piercing hazel eyes, sharp cheekbones, warm tungsten rim lighting | WARDROBE:tailored dark charcoal wool trench coat with brushed brass collar insignia, tactical wrist-chronometer | SEED:2099042 | IPA:0.88] [CHAR_LOCK:Kaelen Vance | DNA:38-year-old rugged male explorer, short salt-and-pepper beard, weathered skin, intense focused gaze, cinematic anamorphic lighting | WARDROBE:matte slate expedition parka with subtle amber telemetry LEDs on shoulder, climbing harness | SEED:8841209 | IPA:0.85] — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic",
+        "clip": [
+          "4",
+          1
+        ]
+      },
+      "_meta": {
+        "title": "Scene 1 Positive Prompt (Continuity Locked)"
+      }
+    },
+    "2": {
+      "class_type": "IPAdapterAdvanced",
+      "inputs": {
+        "weight": 0.88,
+        "reference_image": "/assets/images/char_elena_archivist_dna.jpg",
+        "lora_name": "elena_kora_identity_v3.safetensors"
+      },
+      "_meta": {
+        "title": "Scene 1 Character DNA Lock (Dr. Elena Kora)"
+      }
+    },
+    "3": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 2099043,
+        "steps": 28,
+        "cfg": 6.5,
+        "sampler_name": "dpmpp_2m_sde_gpu",
+        "scheduler": "karras",
+        "denoise": 1.0,
+        "positive": [
+          "1",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Scene 1 Render Sampler"
+      }
+    },
+    "4": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "Underground quantum archive vault, Dr. Elena Kora inspecting floating golden holographic memory crystals — [CHAR_LOCK:Dr. Elena Kora | DNA:32-year-old woman, Dr. Elena Kora, dark wavy hair tied back in a low bun, piercing hazel eyes, sharp cheekbones, warm tungsten rim lighting | WARDROBE:tailored dark charcoal wool trench coat with brushed brass collar insignia, tactical wrist-chronometer | SEED:2099042 | IPA:0.88] [CHAR_LOCK:Kaelen Vance | DNA:38-year-old rugged male explorer, short salt-and-pepper beard, weathered skin, intense focused gaze, cinematic anamorphic lighting | WARDROBE:matte slate expedition parka with subtle amber telemetry LEDs on shoulder, climbing harness | SEED:8841209 | IPA:0.85] — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic — [CHAR_LOCK:Dr. Elena Kora | DNA:32-year-old woman, Dr. Elena Kora, dark wavy hair tied back in a low bun, piercing hazel eyes, sharp cheekbones, warm tungsten rim lighting | WARDROBE:tailored dark charcoal wool trench coat with brushed brass collar insignia, tactical wrist-chronometer | SEED:2099042 | IPA:0.88] [CHAR_LOCK:Kaelen Vance | DNA:38-year-old rugged male explorer, short salt-and-pepper beard, weathered skin, intense focused gaze, cinematic anamorphic lighting | WARDROBE:matte slate expedition parka with subtle amber telemetry LEDs on shoulder, climbing harness | SEED:8841209 | IPA:0.85] — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic",
+        "clip": [
+          "4",
+          1
+        ]
+      },
+      "_meta": {
+        "title": "Scene 2 Positive Prompt (Continuity Locked)"
+      }
+    },
+    "5": {
+      "class_type": "IPAdapterAdvanced",
+      "inputs": {
+        "weight": 0.88,
+        "reference_image": "/assets/images/char_elena_archivist_dna.jpg",
+        "lora_name": "elena_kora_identity_v3.safetensors"
+      },
+      "_meta": {
+        "title": "Scene 2 Character DNA Lock (Dr. Elena Kora)"
+      }
+    },
+    "6": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 2099044,
+        "steps": 28,
+        "cfg": 6.5,
+        "sampler_name": "dpmpp_2m_sde_gpu",
+        "scheduler": "karras",
+        "denoise": 1.0,
+        "positive": [
+          "4",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Scene 2 Render Sampler"
+      }
+    },
+    "7": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "Colossal monolithic solar-ring rising above misty Anatolian basalt mountains at dawn, lone explorer on cliff edge — [CHAR_LOCK:Dr. Elena Kora | DNA:32-year-old woman, Dr. Elena Kora, dark wavy hair tied back in a low bun, piercing hazel eyes, sharp cheekbones, warm tungsten rim lighting | WARDROBE:tailored dark charcoal wool trench coat with brushed brass collar insignia, tactical wrist-chronometer | SEED:2099042 | IPA:0.88] [CHAR_LOCK:Kaelen Vance | DNA:38-year-old rugged male explorer, short salt-and-pepper beard, weathered skin, intense focused gaze, cinematic anamorphic lighting | WARDROBE:matte slate expedition parka with subtle amber telemetry LEDs on shoulder, climbing harness | SEED:8841209 | IPA:0.85] — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic — [CHAR_LOCK:Dr. Elena Kora | DNA:32-year-old woman, Dr. Elena Kora, dark wavy hair tied back in a low bun, piercing hazel eyes, sharp cheekbones, warm tungsten rim lighting | WARDROBE:tailored dark charcoal wool trench coat with brushed brass collar insignia, tactical wrist-chronometer | SEED:2099042 | IPA:0.88] [CHAR_LOCK:Kaelen Vance | DNA:38-year-old rugged male explorer, short salt-and-pepper beard, weathered skin, intense focused gaze, cinematic anamorphic lighting | WARDROBE:matte slate expedition parka with subtle amber telemetry LEDs on shoulder, climbing harness | SEED:8841209 | IPA:0.85] — Style: ARRI Alexa 65, anamorphic lens, 8k photorealistic",
+        "clip": [
+          "4",
+          1
+        ]
+      },
+      "_meta": {
+        "title": "Scene 3 Positive Prompt (Continuity Locked)"
+      }
+    },
+    "8": {
+      "class_type": "IPAdapterAdvanced",
+      "inputs": {
+        "weight": 0.88,
+        "reference_image": "/assets/images/char_elena_archivist_dna.jpg",
+        "lora_name": "elena_kora_identity_v3.safetensors"
+      },
+      "_meta": {
+        "title": "Scene 3 Character DNA Lock (Dr. Elena Kora)"
+      }
+    },
+    "9": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 2099045,
+        "steps": 28,
+        "cfg": 6.5,
+        "sampler_name": "dpmpp_2m_sde_gpu",
+        "scheduler": "karras",
+        "denoise": 1.0,
+        "positive": [
+          "7",
+          0
+        ]
+      },
+      "_meta": {
+        "title": "Scene 3 Render Sampler"
+      }
+    }
+  }
+}

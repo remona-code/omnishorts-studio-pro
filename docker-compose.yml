@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  omnishorts-studio:
+    build: .
+    container_name: omnishorts-studio-pro
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./output:/app/output
+      - ./assets:/app/assets
+    environment:
+      - OMNISHORTS_MODE=hybrid
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - COMFYUI_HOST=http://host.docker.internal:8188
+    restart: unless-stopped
